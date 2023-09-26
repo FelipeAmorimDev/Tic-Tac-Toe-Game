@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles/style.css">
+  <title>Tac Toe</title>
+</head>
+
+<body>
+  <main class="tictactoe__container">
+    <header class="tictactoe__topo">
+      <a href="/" class="tictactoe__logo"><img src="./assets/logo.svg" alt="tic tac toe game"></a>
+      <div class="tictactoe__turn">
+        <img src="./assets/jogador-vez-x.svg" alt="" class="turn__img">
+        <span class="turn__text font-principal-xs cor-7">TURN</span>
+      </div>
+      <button class="btn-restart"><img src="./assets/icon-restart.svg" alt="restart"></button>
+    </header>
+    <ul class="tictactoe__tabuleiro">
+      <li class="tictactoe__casa"></li>
+      <li class="tictactoe__casa"></li>
+      <li class="tictactoe__casa"></li>
+      <li class="tictactoe__casa"></li>
+      <li class="tictactoe__casa"></li>
+      <li class="tictactoe__casa"></li>
+      <li class="tictactoe__casa"></li>
+      <li class="tictactoe__casa"></li>
+      <li class="tictactoe__casa"></li>
+    </ul>
+    <ul class="tictactoe__contador cor-5 font-principal-body">
+      <li class="contador__item blue ">
+        <span class="contador__player">X (YOU)</span>
+        <span class="contador__vitorias font-principal-m ">0</span>
+      </li>
+      <li class="contador__item gray">
+        <span class="contador__player">TIES</span>
+        <span class="contador__vitorias font-principal-m ">0</span>
+      </li>
+      <li class="contador__item yellow">
+        <span class="contador__player">O (CPU)</span>
+        <span class="contador__vitorias font-principal-m ">0</span>
+      </li>
+    </ul>
+  </main>
+  <div class="modal__overlayer disablemodal">
+    <div class="tictactoe__modal">
+      <span class="modal__subtitle"></span>
+      <h1 class="modal__title font-principal-l  cor-7">RESTART GAME?</h1>
+      <button class="modal__principalbtn font-principal-xs cor-5 btn-secondary-minor ">NO, CANCEL</button>
+      <button class="modal__secundariobtn font-principal-xs cor-5 btn-primary-minor">YES, RESTART</button>
+    </div>
+  </div>
+  <script src="./scripts/app.js"></script>
+</body>
+
+</html>

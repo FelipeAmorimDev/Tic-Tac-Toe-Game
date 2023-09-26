@@ -1,0 +1,29 @@
+.tictactoe__contador{
+  display: flex;
+  gap: 19px;
+}
+
+.contador__item{
+  flex:1;
+  margin: 13px 0 11px;
+  height: 72px;
+  background-color: red;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+}
+
+
+.contador__item.blue{
+  background-color: var(--cor-1);
+}
+
+.contador__item.gray{
+  background-color: var(--cor-7);
+}
+
+.contador__item.yellow{
+  background-color: var(--cor-3);
+}

@@ -1,0 +1,16 @@
+.tictactoe__topo{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 19px;
+}
+
+.tictactoe__turn{
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 13px 30px 19px;
+  background-color: var(--cor-6);
+  border-radius: 10px;
+  box-shadow: 0px -4px 0px 0px #10212A inset;
+}

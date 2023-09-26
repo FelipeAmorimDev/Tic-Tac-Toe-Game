@@ -1,0 +1,41 @@
+.font-principal-l,
+.font-principal-m,
+.font-principal-s,
+.font-principal-xs,
+.font-principal-body {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+}
+
+.font-principal-l {
+  font-size: 40px;
+  letter-spacing: 2.5px;
+}
+
+.font-principal-m {
+  font-size: 24px;
+  letter-spacing: 1.5px;
+}
+
+.font-principal-s {
+  font-size: 20px;
+  letter-spacing: 1.25px;
+}
+
+.font-principal-xs {
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+
+.font-principal-body {
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.8px;
+}
+
+
+@media (max-width:600px){
+  .font-principal-l{
+    font-size: 24px;
+  }
+}

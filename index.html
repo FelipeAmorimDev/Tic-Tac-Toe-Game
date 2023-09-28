@@ -15,39 +15,52 @@
 
 <body>
   <main class="tictactoe__container">
-    <header class="tictactoe__topo">
-      <a href="/" class="tictactoe__logo"><img src="./assets/logo.svg" alt="tic tac toe game"></a>
-      <div class="tictactoe__turn">
-        <img src="./assets/jogador-vez-x.svg" alt="" class="turn__img">
-        <span class="turn__text font-principal-xs cor-7">TURN</span>
+    <section class="menu">
+      <header class="menu__topo">
+        <a href="/" class="menu__logo"><img src="./assets/logo.svg" alt="Logo"></a>
+      </header>
+      <div class="newgame__container">
+        <button class="newgame__vscpu btn-primary font-principal-s cor-5">NEW GAME (VS CPU)</button>
+        <button class="newgame__vsplayer btn-secondary font-principal-s cor-5">NEW GAME (VS PLAYER)</button>
       </div>
-      <button class="btn-restart"><img src="./assets/icon-restart.svg" alt="restart"></button>
-    </header>
-    <ul class="tictactoe__tabuleiro">
-      <li class="tictactoe__casa"></li>
-      <li class="tictactoe__casa"></li>
-      <li class="tictactoe__casa"></li>
-      <li class="tictactoe__casa"></li>
-      <li class="tictactoe__casa"></li>
-      <li class="tictactoe__casa"></li>
-      <li class="tictactoe__casa"></li>
-      <li class="tictactoe__casa"></li>
-      <li class="tictactoe__casa"></li>
-    </ul>
-    <ul class="tictactoe__contador cor-5 font-principal-body">
-      <li class="contador__item blue ">
-        <span class="contador__player">X (YOU)</span>
-        <span class="contador__vitorias font-principal-m ">0</span>
-      </li>
-      <li class="contador__item gray">
-        <span class="contador__player">TIES</span>
-        <span class="contador__vitorias font-principal-m ">0</span>
-      </li>
-      <li class="contador__item yellow">
-        <span class="contador__player">O (CPU)</span>
-        <span class="contador__vitorias font-principal-m ">0</span>
-      </li>
-    </ul>
+    </section>
+
+    <section class="game hidden">
+      <header class="tictactoe__topo">
+        <a href="/" class="tictactoe__logo"><img src="./assets/logo.svg" alt="tic tac toe game"></a>
+        <div class="tictactoe__turn">
+          <img src="./assets/jogador-vez-x.svg" alt="" class="turn__img">
+          <span class="turn__text font-principal-xs cor-7">TURN</span>
+        </div>
+        <button class="btn-restart"><img src="./assets/icon-restart.svg" alt="restart"></button>
+      </header>
+      <ul class="tictactoe__tabuleiro">
+        <li class="tictactoe__casa"></li>
+        <li class="tictactoe__casa"></li>
+        <li class="tictactoe__casa"></li>
+        <li class="tictactoe__casa"></li>
+        <li class="tictactoe__casa"></li>
+        <li class="tictactoe__casa"></li>
+        <li class="tictactoe__casa"></li>
+        <li class="tictactoe__casa"></li>
+        <li class="tictactoe__casa"></li>
+      </ul>
+      <ul class="tictactoe__contador cor-5 font-principal-body">
+        <li class="contador__item blue ">
+          <span class="contador__player">X (YOU)</span>
+          <span class="contador__vitorias font-principal-m ">0</span>
+        </li>
+        <li class="contador__item gray">
+          <span class="contador__player">TIES</span>
+          <span class="contador__vitorias font-principal-m ">0</span>
+        </li>
+        <li class="contador__item yellow">
+          <span class="contador__player">O (CPU)</span>
+          <span class="contador__vitorias font-principal-m ">0</span>
+        </li>
+      </ul>
+    </section>
+
   </main>
   <div class="modal__overlayer disablemodal">
     <div class="tictactoe__modal">

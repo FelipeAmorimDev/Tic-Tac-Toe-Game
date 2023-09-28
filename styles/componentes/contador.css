@@ -27,3 +27,15 @@
 .contador__item.yellow{
   background-color: var(--cor-3);
 }
+
+@media (max-width:600px){
+  .contador__player{
+    font-size: 12px;
+    letter-spacing: 0.75px;
+  }
+
+  .contador__vitorias{
+    font-size: 20px;
+    letter-spacing: 1.25px;
+  }
+}

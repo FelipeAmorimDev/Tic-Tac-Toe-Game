@@ -25,3 +25,17 @@ img{
 .tictactoe__container{
   padding: 0px 20px;
 }
+
+
+.hidden{
+  display: none;
+}
+
+@media (max-width:600px){
+  body{
+    overflow-y: hidden;
+    margin-top: 60px;
+    align-items: start;
+    height: 100%;
+  }
+}

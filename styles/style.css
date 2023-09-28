@@ -3,10 +3,17 @@
 @import url("./componentes/cores.css");
 @import url("./componentes/botoes.css");
 
+@import url("./componentes/menu.css");
 @import url("./componentes/header.css");
 @import url("./componentes/tabuleiro.css");
 @import url("./componentes/contador.css");
 .tictactoe__container{
   min-width: 460px;
   margin: 0 auto;
+}
+
+@media (max-width:600px){
+  .tictactoe__container{
+    min-width: 328px;
+  }
 }

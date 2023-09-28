@@ -81,6 +81,8 @@
 .modal__overlayer{
   position: absolute;
   background-color: rgba(0, 0, 0, 0.368);
+  top: 0px;
+  left: 0px;
   width: 100%;
   height: 100%;
   display: flex;
@@ -98,9 +100,20 @@
   }
   .tictactoe__modal{
     padding: 40px 0px 48px;
+    transform: translateY(270px);
   }
 
   .modal__subtitle{
     font-size: 14px;
   }
+  .btn-primary,.btn-secondary{
+    padding: 14px 0px 22px;
+    width: 327px;
+  }
+
+  .modal__overlayer{
+    top: 0px;
+    align-items: flex-start;
+  }
+  
 }

@@ -38,4 +38,14 @@
   .font-principal-l{
     font-size: 24px;
   }
+
+  .font-principal-xs{
+    font-size: 14px;
+    letter-spacing: 0.88px;
+  }
+
+  .font-principal-s{
+    font-size: 16px;
+    letter-spacing: 1px;
+  }
 }

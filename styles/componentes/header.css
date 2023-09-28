@@ -14,3 +14,12 @@
   border-radius: 10px;
   box-shadow: 0px -4px 0px 0px #10212A inset;
 }
+
+
+@media (max-width:600px){
+  .tictactoe__turn{
+    padding: 9px 15px 13px;
+    gap: 9px;
+    font-size: 1px;
+  }
+}

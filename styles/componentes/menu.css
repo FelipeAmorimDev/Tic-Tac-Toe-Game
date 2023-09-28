@@ -1,0 +1,9 @@
+.menu__logo img{
+  margin: 0 auto 40px;
+}
+
+.newgame__container{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

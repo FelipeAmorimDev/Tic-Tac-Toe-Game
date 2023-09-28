@@ -1,3 +1,5 @@
+const menu = document.querySelector(".menu")
+const game = document.querySelector(".game")
 const casasTabuleiro = document.querySelectorAll(".tictactoe__casa")
 const turnPlayer = document.querySelector(".turn__img")
 const contadoresPlacar = document.querySelectorAll(".contador__vitorias")
@@ -6,9 +8,12 @@ const modal = document.querySelector(".tictactoe__modal")
 const modalJogo = document.querySelector(".modal__overlayer")
 const botaoUmModal = document.querySelector(".modal__principalbtn")
 const botaoDoisModal = document.querySelector(".modal__secundariobtn")
+const vsCPUBtn = document.querySelector(".newgame__vscpu")
+const vsPlayerBtn = document.querySelector(".newgame__vsplayer")
 let casasLivres = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 let placar = [0, 0, 0]
 let jogadorVez = 0
+let tipoJogador = 0
 let ganhador = false
 let contadorJogadas = 0
 let tabuleiro = [
@@ -28,22 +33,35 @@ const jogadorHandle = event => {
 
     if (estaSelecional) {
       contadorJogadas++
-      prencherTabuleiro(posicaoCasaSelecionada, casaClicada)
+      prencherTabuleiro(posicaoCasaSelecionada, casaClicada,"./assets/icon-x.svg", "X")
       verificaGanhador("X")
       jogadorUmVencedor()
+    } else {
+      console.log("esta selecionada")
+    }
+  }else if (tipoJogador === 1){
+    const casaClicada = event.currentTarget
+    const posicaoCasaSelecionada = Number(casaClicada.getAttribute("casa"))
+    const estaSelecional = casasLivres.includes(posicaoCasaSelecionada)
+
+    if (estaSelecional) {
+      contadorJogadas++
+      prencherTabuleiro(posicaoCasaSelecionada, casaClicada, "./assets/icon-o.svg", "O")
+      verificaGanhador("O")
+      jogadorDoisVencedor()
     } else {
       console.log("esta selecionada")
     }
   }
 }
 
-function prencherTabuleiro(posicao, casaClicada) {
+function prencherTabuleiro(posicao, casaClicada, src , player) {
   const indexCasa = casasLivres.indexOf(posicao)
   const indexTabuleiro = Number(casaClicada.getAttribute("casa")) - 1
 
   casasLivres.splice(indexCasa, 1)
-  marcaNoHTML(indexTabuleiro, "./assets/icon-x.svg")
-  marcaNoTabuleiro(posicao, "X")
+  marcaNoHTML(indexTabuleiro, src)
+  marcaNoTabuleiro(posicao, player)
 }
 
 function marcaNoTabuleiro(posicao, jogador) {
@@ -62,12 +80,11 @@ function alterarContador(elemento, valor) {
 
 function jogadorUmVencedor() {
 
-
   if (ganhador == true) {
     placarJogadorUm++
     modal.innerHTML = `<span class="modal__subtitle font-principal-xs cor-7">YOU WON!</span>
     <h1 class="modal__title font-principal-l  cor-7"><img src="./assets/icon-x.svg" class="icon-jogador">TAKES THE ROUND</h1>
-    <button class="modal__principalbtn font-principal-xs cor-5 btn-secondary-minor" onClick="proximoJogo()">QUIT</button>
+    <button class="modal__principalbtn font-principal-xs cor-5 btn-secondary-minor" onClick="voltarMenu()">QUIT</button>
     <button class="modal__secundariobtn font-principal-xs cor-5 btn-primary-minor" onClick="proximoJogo()">NEXT ROUND</button>
   `
   modalJogo.classList.toggle("disablemodal")
@@ -83,7 +100,7 @@ function jogadorUmVencedor() {
       placarEmpates++
       modal.innerHTML = `
       <h1 class="modal__title font-principal-l  cor-7">ROUND TIED</h1>
-      <button class="modal__principalbtn font-principal-xs cor-5 btn-secondary-minor" onClick="proximoJogo()">QUIT</button>
+      <button class="modal__principalbtn font-principal-xs cor-5 btn-secondary-minor" onClick="voltarMenu()">QUIT</button>
       <button class="modal__secundariobtn font-principal-xs cor-5 btn-primary-minor" onClick="proximoJogo()">NEXT ROUND</button>
     `
     modalJogo.classList.toggle("disablemodal")
@@ -95,10 +112,50 @@ function jogadorUmVencedor() {
       return
     }
     mudarVezHTML("./assets/jogador-vez-o.svg")
+   
+    if(!(tipoJogador === 1)){
+      setTimeout(() => {
+        jogadaBot()
+      }, 1000)
+    }
+    }
+}
+
+function jogadorDoisVencedor() {
+
+  if (ganhador == true) {
+    placarJogadorDois++
+    modal.innerHTML = `<span class="modal__subtitle font-principal-xs cor-7">PLAYER 2 WINS!</span>
+    <h1 class="modal__title font-principal-l  cor-7"><img src="./assets/icon-o.svg" class="icon-jogador">TAKES THE ROUND</h1>
+    <button class="modal__principalbtn font-principal-xs cor-5 btn-secondary-minor" onClick="voltarMenu()">QUIT</button>
+    <button class="modal__secundariobtn font-principal-xs cor-5 btn-primary-minor" onClick="proximoJogo()">NEXT ROUND</button>
+  `
+  modalJogo.classList.toggle("disablemodal")
+    
     setTimeout(() => {
-      jogadaBot()
-    }, 1000)
-  }
+      alterarContador(contadoresPlacar[2], placarJogadorDois)
+      limparTabuleiro()
+    }, 500)
+  } else {
+    jogadorVez--
+
+    // if (contadorJogadas === 9) {
+    //   placarEmpates++
+    //   modal.innerHTML = `
+    //   <h1 class="modal__title font-principal-l  cor-7">ROUND TIED</h1>
+    //   <button class="modal__principalbtn font-principal-xs cor-5 btn-secondary-minor" onClick="proximoJogo()">QUIT</button>
+    //   <button class="modal__secundariobtn font-principal-xs cor-5 btn-primary-minor" onClick="proximoJogo()">NEXT ROUND</button>
+    // `
+    // modalJogo.classList.toggle("disablemodal")
+    //   setTimeout(() => {
+    //     alterarContador(contadoresPlacar[1], placarEmpates)
+    //     limparTabuleiro()
+    //   }, 500)
+
+    //   return
+    // }
+    mudarVezHTML("./assets/jogador-vez-x.svg")
+    }
 }
 
 function cpuVenceu() {
@@ -106,7 +163,7 @@ function cpuVenceu() {
     placarJogadorDois++
     modal.innerHTML = `<span class="modal__subtitle font-principal-xs cor-7">OH NO, YOU LOST…</span>
     <h1 class="modal__title font-principal-l  cor-3"><img src="./assets/icon-o.svg" class="icon-jogador">TAKES THE ROUND</h1>
-    <button class="modal__principalbtn font-principal-xs cor-5 btn-secondary-minor" onClick="proximoJogo()">QUIT</button>
+    <button class="modal__principalbtn font-principal-xs cor-5 btn-secondary-minor" onClick="voltarMenu()">QUIT</button>
     <button class="modal__secundariobtn font-principal-xs cor-5 btn-primary-minor" onClick="proximoJogo()">NEXT ROUND</button>
   `
   modalJogo.classList.toggle("disablemodal")
@@ -124,6 +181,20 @@ function cpuVenceu() {
 function proximoJogo(){
   limparTabuleiro()
   modalJogo.classList.toggle("disablemodal")
+}
+
+function voltarMenu(){
+  limparTabuleiro()
+  tipoJogador = 0
+  placarJogadorUm = 0
+  placarJogadorDois = 0
+  placarEmpates = 0
+  alterarContador(contadoresPlacar[0], placarJogadorUm)
+  alterarContador(contadoresPlacar[2], placarJogadorDois)
+  alterarContador(contadoresPlacar[1], placarEmpates)
+  modalJogo.classList.toggle("disablemodal")
+  game.classList.add("hidden")
+  menu.classList.remove("hidden")
 }
 
 function voltarAoJogo(){
@@ -219,9 +290,25 @@ function limparTabuleiro() {
   })
 }
 
-function montarHtmlGanhador() {
+function montarHTMLPagina() {
 
+  
 }
+
+vsCPUBtn.addEventListener("click", () => {
+  game.classList.remove("hidden")
+  menu.classList.add("hidden")
+ })
+
+ vsPlayerBtn.addEventListener("click", () => {
+  tipoJogador = 1
+  game.classList.remove("hidden")
+  menu.classList.add("hidden")
+ })
+
+
+
+
 casasTabuleiro.forEach((casa, index) => {
   casa.setAttribute("casa", index + 1)
   casa.addEventListener("click", jogadorHandle)

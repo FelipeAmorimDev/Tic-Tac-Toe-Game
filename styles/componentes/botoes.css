@@ -1,7 +1,7 @@
 .btn-primary,.btn-secondary{
   background-color: var(--cor-3);
   border: none;
-  padding: 17px 152.5px 25px 154.5px;
+  padding: 17px 0px 25px 0px;
   border-radius: 15px;
   box-shadow: 0px -8px 0px 0px #CC8B13 inset;
   transition: .3s;

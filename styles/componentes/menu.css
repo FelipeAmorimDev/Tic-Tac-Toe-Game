@@ -7,3 +7,61 @@
   flex-direction: column;
   gap: 20px;
 }
+
+.mark-chose__container{
+  background-color: var(--cor-6);
+  padding: 24px 24px 30px;
+  text-align: center;
+  border-radius: 15px;
+  margin-bottom: 40px;
+  box-shadow: 0px -8px 0px 0px #10212A inset;
+}
+
+.mark-chose__title{
+  margin-bottom: 24px;
+  display: inline-block;
+}
+.mark-chose__painel{
+  display: flex;
+  background-color: #8c8c8c;
+  background-color: var(--cor-5);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 17px;
+  transition: .3s;
+}
+
+.mark-chose__painel .painel__img{
+  transition: .4s;
+  width: 50%;
+  padding: 11px 0px;
+  display: flex;
+  justify-content: center;
+  background-color: var(--cor-5);
+  margin: 9px;
+  height: 54px;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+.mark-chose__painel .painel__img img{
+ width: 32px;
+ height: 32px;
+}
+
+.mark-chose__painel .painel__img:last-of-type{
+  
+  border-radius: 10px;
+   margin: 9px 9px 9px 0px;
+}
+
+.painel__img.ativo{
+  background-color: #A8BFC9;
+}
+
+.painel__img:first-of-type:hover:not(.painel__img.ativo:first-of-type){
+  background: rgba(168, 191, 201, 0.05);
+}
+
+.painel__img:last-of-type:hover:not(.painel__img.ativo:last-of-type){
+  background: rgba(168, 191, 201, 0.05);
+}

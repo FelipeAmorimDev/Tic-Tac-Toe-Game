@@ -28,7 +28,6 @@ let tabuleiro = [
   [7, 8, 9]
 ]
 
-
 const jogadorHandle = event => {
   if (jogadorVez === 0) {
     const casaClicada = event.currentTarget
@@ -132,7 +131,7 @@ function jogadorUmVencedor(tipo) {
 
   if (ganhador == true) {
     placarJogadorUm++
-    modal.innerHTML = `<span class="modal__subtitle font-principal-xs cor-7">YOU WON!</span>
+    modal.innerHTML = `<span class="modal__subtitle font-principal-xs cor-7">${tipoJogador === 0 ? "YOU WON!": "PLAYER 1 WINS!"}</span>
     <h1 class="modal__title font-principal-l  ${tipoJogadorIs === "X" ? "cor-3" : "cor-2"}"><img src="./assets/icon-${tipo.toLowerCase()}.svg" class="icon-jogador">TAKES THE ROUND</h1>
     <button class="modal__principalbtn font-principal-xs cor-5 btn-secondary-minor" onClick="voltarMenu()">QUIT</button>
     <button class="modal__secundariobtn font-principal-xs cor-5 btn-primary-minor" onClick="proximoJogo()">NEXT ROUND</button>
@@ -184,7 +183,11 @@ function jogadorDoisVencedor(tipo) {
     <button class="modal__secundariobtn font-principal-xs cor-5 btn-primary-minor" onClick="proximoJogo()">NEXT ROUND</button>
   `
     modalJogo.classList.toggle("disablemodal")
-    alterarContador(contadoresPlacar[2], placarJogadorDois)
+    if(tipo === "X"){
+      alterarContador(contadoresPlacar[0], placarJogadorDois)
+    }else{
+      alterarContador(contadoresPlacar[2], placarJogadorDois)
+    }
     setTimeout(() => {
       limparTabuleiro()
     }, 1000)
@@ -324,9 +327,7 @@ function limparTabuleiro() {
 
 function botJogaPrimeiro() {
   if (!firstIsX && tipoJogador == 0) {
-    const labelContadores = document.querySelectorAll(".contador__player")
-    labelContadores[0].innerText = "X (CPU)"
-    labelContadores[2].innerText = "O (YOU)"
+    
     jogadorVez = 1
     setTimeout(() => {
       jogadaBot("X")
@@ -335,6 +336,9 @@ function botJogaPrimeiro() {
 }
 
 vsCPUBtn.addEventListener("click", () => {
+  const labelContadores = document.querySelectorAll(".contador__player")
+  labelContadores[0].innerText = jogadorVez === 1 ? "X (CPU)" : "X (YOU)"
+  labelContadores[2].innerText = jogadorVez === 1 ? "O (YOU)": "O (CPU)"
   game.classList.remove("hidden")
   menu.classList.add("hidden")
 
@@ -342,6 +346,9 @@ vsCPUBtn.addEventListener("click", () => {
 })
 
 vsPlayerBtn.addEventListener("click", () => {
+  const labelContadores = document.querySelectorAll(".contador__player")
+  labelContadores[0].innerText = jogadorVez === 1 ? "X (P2)" : "X (P1)"
+  labelContadores[2].innerText = jogadorVez === 1 ? "O (P1)": "O (P2)"
   tipoJogador = 1
   game.classList.remove("hidden")
   menu.classList.add("hidden")

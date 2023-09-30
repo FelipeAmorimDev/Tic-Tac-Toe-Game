@@ -11,6 +11,9 @@
   padding: 38.27px;
   box-shadow: 0px -8px 0px 0px #10212A inset;
   border-radius: 15px;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: .4s;
 }
 
 @media (max-width:600px){

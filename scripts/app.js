@@ -35,18 +35,59 @@ const jogadorHandle = event => {
 
   if (jogadorVez === 0) {
     contadorJogadas++
+    adicionarHover()
     removeEventoCasa(casaClicada)
+    removeEventoHover(casaClicada)
     prencherTabuleiro(posicaoCasaSelecionada, firstIsX ? "./assets/icon-x.svg" : "./assets/icon-o.svg", firstIsX ? "X" : "O")
     verificaGanhador(firstIsX ? "X" : "O")
     jogadorUmVencedor(firstIsX ? "X" : "O")
-
   } else if (tipoJogador === 1) {
     contadorJogadas++
+    adicionarHover()
     removeEventoCasa(casaClicada)
+    removeEventoHover(casaClicada)
     prencherTabuleiro(posicaoCasaSelecionada, firstIsX ? "./assets/icon-o.svg" : "./assets/icon-x.svg", firstIsX ? "O" : "X")
     verificaGanhador(firstIsX ? "O" : "X")
     jogadorDoisVencedor(firstIsX ? "O" : "X")
 
+  }
+}
+
+function removeEventoHover(casa){
+  casa.removeEventListener("mouseover",adicionarBg)
+  casa.removeEventListener("mouseout",adicionarBg)
+}
+
+function adicionarBg(event) {
+  let player = null
+  //refatorar
+  if(jogadorVez === 0 && firstIsX){
+    player = "x"
+  }else if(tipoJogador === 0 && firstIsX){
+    player = "x"
+  }else if(tipoJogador === 0 && !firstIsX){
+    player = "o"
+  }
+  else if(jogadorVez === 1 && firstIsX){
+    player = "o"
+  }else if(jogadorVez === 1 && !firstIsX){
+    player = "x"
+  }else{
+    player = "o"
+  }
+  event.currentTarget.style = `background-image: url("./assets/icon-${player}-outline.svg")`
+}
+
+function retirarBg(event){
+  event.currentTarget.style = `background-image: unset`
+}
+
+
+function adicionarHover() {
+  
+  for (let i = 0; i < casasLivres.length; i++) {
+    casasTabuleiro[casasLivres[i] - 1].addEventListener("mouseover",adicionarBg)
+    casasTabuleiro[casasLivres[i] - 1].addEventListener("mouseout", retirarBg)
   }
 }
 
@@ -135,13 +176,13 @@ function jogadorUmVencedor(tipo) {
     mudarVezHTML(`./assets/jogador-vez-${tipoJogadorIs.toLowerCase()}.svg`)
 
     if (!(tipoJogador === 1)) {
+
       setTimeout(() => {
         jogadaBot(tipoJogadorIs)
       }, 1000)
     }
   }
 }
-
 
 function jogadorDoisVencedor(tipo) {
   const tipoJogadorIs = firstIsX === true ? "X" : "O"
@@ -188,6 +229,7 @@ function jogadaBot(tipo) {
   contadorJogadas++
 
   removeEventoCasa(casasTabuleiro[casaEscolhida - 1])
+  removeEventoHover(casasTabuleiro[casaEscolhida - 1])
   marcaNoTabuleiro(casaEscolhida, tipo)
   marcaNoHTML(indexCasaSelecionada, `./assets/icon-${tipo.toLowerCase()}.svg`)
   verificaGanhador(tipo)
@@ -241,6 +283,8 @@ function mudarVezHTML(src) {
 
 function proximoJogo() {
   reiniciarEventosCasas()
+  limparTabuleiro()
+  adicionarHover()
   botJogaPrimeiro()
   modalJogo.classList.toggle("disablemodal")
 }
@@ -253,6 +297,7 @@ function voltarMenu() {
   menu.classList.remove("hidden")
 
   limparContadores()
+  adicionarHover()
   reiniciarEventosCasas()
 }
 
@@ -273,7 +318,7 @@ function voltarAoJogo() {
 function limparTabuleiro() {
   casasLivres = [1, 2, 3, 4, 5, 6, 7, 8, 9]
   jogadorVez = firstIsX ? 0 : 1
-   contadorJogadas = 0
+  contadorJogadas = 0
   tabuleiro = [
     [1, 2, 3],
     [4, 5, 6],
@@ -324,6 +369,7 @@ function jogadorPadrao(event) {
 
 //Refatorar
 vsCPUBtn.addEventListener("click", () => {
+  adicionarHover()
   const labelContadores = document.querySelectorAll(".contador__player")
   labelContadores[0].innerText = jogadorVez === 1 ? "X (CPU)" : "X (YOU)"
   labelContadores[2].innerText = jogadorVez === 1 ? "O (YOU)" : "O (CPU)"
@@ -334,6 +380,7 @@ vsCPUBtn.addEventListener("click", () => {
 })
 
 vsPlayerBtn.addEventListener("click", () => {
+  adicionarHover()
   const labelContadores = document.querySelectorAll(".contador__player")
   labelContadores[0].innerText = jogadorVez === 1 ? "X (P2)" : "X (P1)"
   labelContadores[2].innerText = jogadorVez === 1 ? "O (P1)" : "O (P2)"
@@ -343,6 +390,8 @@ vsPlayerBtn.addEventListener("click", () => {
 })
 
 casasTabuleiro.forEach((casa, index) => {
+  let vezIcon = "x"
+
   casa.setAttribute("casa", index + 1)
   casa.addEventListener("click", jogadorHandle)
 })

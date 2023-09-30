@@ -35,27 +35,26 @@ const jogadorHandle = event => {
   if (jogadorVez === 0) {
     contadorJogadas++
     removeEventoCasa(casaClicada)
-    prencherTabuleiro(posicaoCasaSelecionada, casaClicada, firstIsX ? "./assets/icon-x.svg" : "./assets/icon-o.svg", firstIsX ? "X" : "O")
+    prencherTabuleiro(posicaoCasaSelecionada, firstIsX ? "./assets/icon-x.svg" : "./assets/icon-o.svg", firstIsX ? "X" : "O")
     verificaGanhador(firstIsX ? "X" : "O")
     jogadorUmVencedor(firstIsX ? "X" : "O")
 
   } else if (tipoJogador === 1) {
     contadorJogadas++
     removeEventoCasa(casaClicada)
-    prencherTabuleiro(posicaoCasaSelecionada, casaClicada, firstIsX ? "./assets/icon-o.svg" : "./assets/icon-x.svg", firstIsX ? "O" : "X")
+    prencherTabuleiro(posicaoCasaSelecionada, firstIsX ? "./assets/icon-o.svg" : "./assets/icon-x.svg", firstIsX ? "O" : "X")
     verificaGanhador(firstIsX ? "O" : "X")
     jogadorDoisVencedor(firstIsX ? "O" : "X")
 
   }
 }
 
+function prencherTabuleiro(posicao, src, player) {
+  const indexCasaLivres = casasLivres.indexOf(posicao)
+  const indexTabuleiro = posicao - 1
 
+  casasLivres.splice(indexCasaLivres, 1)
 
-function prencherTabuleiro(posicao, casaClicada, src, player) {
-  const indexCasa = casasLivres.indexOf(posicao)
-  const indexTabuleiro = Number(casaClicada.getAttribute("casa")) - 1
-
-  casasLivres.splice(indexCasa, 1)
   marcaNoHTML(indexTabuleiro, src)
   marcaNoTabuleiro(posicao, player)
 }
@@ -72,8 +71,8 @@ function marcaNoTabuleiro(posicao, jogador) {
 
 function marcaNoHTML(indexJogada, src) {
   const playerImg = document.createElement("img")
-
   playerImg.setAttribute("src", src)
+
   casasTabuleiro[indexJogada].appendChild(playerImg)
 }
 
@@ -140,21 +139,7 @@ function jogadorUmVencedor(tipo) {
   } else {
     jogadorVez++
 
-    if (contadorJogadas === 9) {
-      placarEmpates++
-      modal.innerHTML = `
-      <h1 class="modal__title font-principal-l  cor-7">ROUND TIED</h1>
-      <button class="modal__principalbtn font-principal-xs cor-5 btn-secondary-minor" onClick="voltarMenu()">QUIT</button>
-      <button class="modal__secundariobtn font-principal-xs cor-5 btn-primary-minor" onClick="proximoJogo()">NEXT ROUND</button>
-    `
-      modalJogo.classList.toggle("disablemodal")
-      alterarContador(contadoresPlacar[1], placarEmpates)
-      setTimeout(() => {
-        limparTabuleiro()
-      }, 600)
-
-      return
-    }
+    verificarEmpate()
     mudarVezHTML(`./assets/jogador-vez-${tipoJogadorIs.toLowerCase()}.svg`)
 
     if (!(tipoJogador === 1)) {
@@ -186,27 +171,14 @@ function jogadorDoisVencedor(tipo) {
   } else {
     jogadorVez--
 
-    if (contadorJogadas === 9) {
-      placarEmpates++
-      modal.innerHTML = `
-      <h1 class="modal__title font-principal-l  cor-7">ROUND TIED</h1>
-      <button class="modal__principalbtn font-principal-xs cor-5 btn-secondary-minor" onClick="voltarMenu()">QUIT</button>
-      <button class="modal__secundariobtn font-principal-xs cor-5 btn-primary-minor" onClick="proximoJogo()">NEXT ROUND</button>
-    `
-      modalJogo.classList.toggle("disablemodal")
-      alterarContador(contadoresPlacar[1], placarEmpates)
-      setTimeout(() => {
-        limparTabuleiro()
-      }, 600)
-
-      return
-    }
+    verificarEmpate()
     mudarVezHTML(`./assets/jogador-vez-${tipoJogadorIs.toLowerCase()}.svg`)
   }
 }
 
 function cpuVenceu(tipo) {
   const tipoJogador = tipo === "X" ? "O" : "X"
+
   if (ganhador == true) {
     placarJogadorDois++
     modal.innerHTML = `<span class="modal__subtitle font-principal-xs cor-7">OH NO, YOU LOST…</span>
@@ -215,6 +187,7 @@ function cpuVenceu(tipo) {
     <button class="modal__secundariobtn font-principal-xs cor-5 btn-primary-minor" onClick="proximoJogo()">NEXT ROUND</button>
   `
     modalJogo.classList.toggle("disablemodal")
+
     if (tipo === "X") {
       alterarContador(contadoresPlacar[0], placarJogadorDois)
     } else {
@@ -227,21 +200,8 @@ function cpuVenceu(tipo) {
 
   } else {
     jogadorVez--
-    if (contadorJogadas === 9) {
-      placarEmpates++
-      modal.innerHTML = `
-      <h1 class="modal__title font-principal-l  cor-7">ROUND TIED</h1>
-      <button class="modal__principalbtn font-principal-xs cor-5 btn-secondary-minor" onClick="voltarMenu()">QUIT</button>
-      <button class="modal__secundariobtn font-principal-xs cor-5 btn-primary-minor" onClick="proximoJogo()">NEXT ROUND</button>
-    `
-      modalJogo.classList.toggle("disablemodal")
-      alterarContador(contadoresPlacar[1], placarEmpates)
-      setTimeout(() => {
-        limparTabuleiro()
-      }, 600)
-
-      return
-    }
+    
+    verificarEmpate()
     mudarVezHTML(`./assets/jogador-vez-${tipoJogador.toLowerCase()}.svg`)
   }
 }
@@ -259,6 +219,25 @@ function jogadaBot(tipo) {
   verificaGanhador(tipo)
   cpuVenceu(tipo)
 
+}
+
+function verificarEmpate(){
+  if (contadorJogadas === 9) {
+    placarEmpates++
+    modal.innerHTML = `
+    <h1 class="modal__title font-principal-l  cor-7">ROUND TIED</h1>
+    <button class="modal__principalbtn font-principal-xs cor-5 btn-secondary-minor" onClick="voltarMenu()">QUIT</button>
+    <button class="modal__secundariobtn font-principal-xs cor-5 btn-primary-minor" onClick="proximoJogo()">NEXT ROUND</button>
+  `
+    modalJogo.classList.toggle("disablemodal")
+    
+    alterarContador(contadoresPlacar[1], placarEmpates)
+    setTimeout(() => {
+      limparTabuleiro()
+    }, 600)
+
+    return
+  }
 }
 
 function alterarContador(elemento, valor) {
